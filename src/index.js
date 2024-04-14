@@ -2,13 +2,14 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
+const databaseConnection = require('./database');
 
 const app = express();
 
 //settings
 require('dotenv').config();
 app.set('port', process.env.PORT || 3000);
-
+databaseConnection();
 
 //midlewares
 app.use(cors());
