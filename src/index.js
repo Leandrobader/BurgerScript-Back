@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const databaseConnection = require('./database');
+const UserRoutes = require('./routes/UserRoutes');
 
 const app = express();
 
@@ -31,3 +32,5 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.listen(app.get('port'), ()=>{
     console.log(`server on port ${app.get('port')}`)
 });
+
+UserRoutes('/userss', app);
