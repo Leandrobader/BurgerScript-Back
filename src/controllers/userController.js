@@ -14,11 +14,11 @@ class UserController{
                 throw new Error('El nombre de usuario debe tener entre 4 y 10 caracteres')
             }
 
-            if (!helpers.ValidateEmail(email)) {
+            if (!helpers.validateEmail(email)) {
                 throw new Error("Formato email invalido")
             }
 
-            if(!helpers.ValidatePassword(password)) throw new Error("Formato password incorrecto");
+            if(!helpers.validatePassword(password)) throw new Error("Formato password incorrecto");
 
             const SALT=parseInt(process.env.BCRYPT_SALT);
             const hash=await bcrypt.hash(password, SALT);

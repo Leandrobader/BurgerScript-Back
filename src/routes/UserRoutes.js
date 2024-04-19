@@ -1,12 +1,6 @@
 const UserController = require('../controllers/userController');
 const Auth = require('../utils/middlewares/auth');
 
-/**
- * Defines the routes related to user operations.
- *
- * @param {string} base - The base URL for the routes.
- * @param {object} app - The Express app object.
- */
 const UserRoutes = (base, app) => {
     const userController = new UserController();
     
