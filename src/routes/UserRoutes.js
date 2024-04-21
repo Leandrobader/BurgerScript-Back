@@ -11,6 +11,9 @@ const UserRoutes = (base, app) => {
             return res.status(201).json({message: "Usuario creado exitosamente"});
         } catch (error) {
             console.error("Error al crear un nuevo usuario: ", error);
+            if (error.code === 11000) {
+                return res.status(400).json({message: "El nombre de usuario o correo ya existe"})
+            }
             return res.status(500).json({message:"Se ha producido un error al intentar crear el usuario"})
         }
     });
