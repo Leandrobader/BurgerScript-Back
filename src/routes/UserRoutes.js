@@ -37,6 +37,30 @@ const UserRoutes = (base, app) => {
         }
     });     
 
+
+    app.get(`${base}/list-users`, async (req, res, next) => {
+        try {
+            const users = await userController.ListUsers();
+            return res.status(200).json(users);
+        } catch (error) {
+            console.error('Error al obtener la lista de usuarios: ', error);
+            return res.status(500).json({ message: 'Se ha producido un error al intentar obtener la lista de usuarios' });
+        }
+    });
+
+
+    app.put(`${base}/edit-user/:id`, async (req, res, next) => {
+        try {
+            const userId = req.params.id;
+            const newData = req.body; 
+            const updatedUser = await userController.EditUserById(userId, newData);
+            return res.status(200).json(updatedUser);
+        } catch (error) {
+            console.error('Error al editar el usuario: ', error);
+            return res.status(500).json({ message: 'Se ha producido un error al intentar editar el usuario' });
+        }
+    });
+
     // app.post(`${base}/login`, async(req, res, next)=>{
     //     try {
     //         const response=await userController.Login(req, res);

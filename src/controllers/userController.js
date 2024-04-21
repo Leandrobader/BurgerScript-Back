@@ -70,6 +70,24 @@ class UserController{
         }
     };
 
+    async ListUsers() {
+        try {
+            const users = await UserModel.find({});
+            return users;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    async EditUserById(id, newData) {
+        try {
+            const updatedUser = await UserModel.findByIdAndUpdate(id, newData, { new: true });
+            return updatedUser;
+        } catch (error) {
+            throw error;
+        }
+    };
+
     async DeleteUserById(id){
         try {
             const deletedUser=await UserModel.findByIdAndDelete(id);
@@ -77,7 +95,7 @@ class UserController{
         } catch (error) {
             throw error
         }
-    }
+    };
 
     
 };
