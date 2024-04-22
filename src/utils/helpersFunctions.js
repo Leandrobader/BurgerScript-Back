@@ -48,7 +48,7 @@ function validateCategory(str){
 }
 
 function validateImage(str){    
-     if (typeof str === 'string') {
+     if (!str) {
         return true;
     } else {
         return false;
