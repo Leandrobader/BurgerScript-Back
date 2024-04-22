@@ -15,7 +15,7 @@ const ProductRoutes = (base, app) => {
      }
  });
 
- app.put(`${base}/update-product/:id`, Auth.isAuthenticated, Auth.isAdmin, async(req, res, next)=>{
+ app.put(`${base}/update-product/:id`, async(req, res, next)=>{
      try {
          const productId = req.params.id || "";
          const {title, description, image, price, category, stock}=req.body;
@@ -27,7 +27,7 @@ const ProductRoutes = (base, app) => {
      }
  });
 
- app.delete(`${base}/delete-product/:id`, Auth.isAuthenticated, Auth.isAdmin, async(req, res, next)=>{
+ app.delete(`${base}/delete-product/:id`, async(req, res, next)=>{
      try {
          const productId = req.params.id || "";
          await productController.DeleteProductById(productId);
