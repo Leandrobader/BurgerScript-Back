@@ -99,10 +99,25 @@ class ProductController {
         }
     }
 
-    async ShowAllProducts() {
+    async ShowAllProducts(search) {
         try {
-            const products = await productModel.find();
-            return products;
+            let finalResponse = [];
+            let query = {};
+            if (search !== undefined) {
+                query["title"]={$regex:search, $options:"i"}
+            }
+
+            // console.log("QUERY DE BUSQ==> ", JSON.stringify(query));
+
+            // if (search === undefined) {
+            //     finalResponse = await productModel.find();
+            // }else{
+            //     finalResponse = await productModel.find({
+            //         title: search
+            //     })
+            // }
+            finalResponse= await productModel.find(query)
+            return finalResponse;
         } catch (error) {
             throw error;
         }
