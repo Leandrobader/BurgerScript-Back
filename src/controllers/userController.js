@@ -105,7 +105,6 @@ class UserController{
         }
     }
 
-
     async DeleteUserById(id){
         try {
             const deletedUser=await UserModel.findByIdAndDelete(id);
@@ -113,7 +112,7 @@ class UserController{
         } catch (error) {
             throw error
         }
-    }
+    };
 
     async ShowAllUsers() {
         try {
