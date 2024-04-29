@@ -51,7 +51,9 @@ const ProductRoutes = (base, app) => {
 
  app.get(`${base}/get-products`, async(req, res, next)=>{
     try {
-        const products = await productController.ShowAllProducts();
+        const {search} = req.query;
+        console.log("valor de la query ", search);
+        const products = await productController.ShowAllProducts(search);
         return res.status(200).json(products);
     } catch (error) {
         console.error("Error al obtener los productos: ", error);
