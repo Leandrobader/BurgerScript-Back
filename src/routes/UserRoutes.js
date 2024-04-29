@@ -18,7 +18,17 @@ const UserRoutes = (base, app) => {
         }
     });
 
-    app.post(`${base}/new-user`, Auth.isAuthenticated, Auth.isAdmin, async(req, res, next)=>{
+    app.post(`${base}/login`, async(req,res, next)=>{
+        try {
+            const response = await userController.Login(req,res);
+            return response;
+        } catch (error) {
+            next(error)
+        }
+    })
+
+
+    app.post(`${base}/new-user`, async(req, res, next)=>{
         try {
             const {name, username, email, password}=req.body;
             await userController.CreateUser(name, username, email, password);
@@ -38,7 +48,18 @@ const UserRoutes = (base, app) => {
             console.error("Error al eliminar el usuario: ", error);
             return res.status(500).json({message:"Se ha producido un error al intentar eliminar el usuario"})
         }
-    });     
+    });    
+    
+    
+    app.get(`${base}/get-users`, async(req, res, next)=>{
+        try {
+            const users = await userController.ShowAllUsers();
+            return res.status(200).json(users);
+        } catch (error) {
+            console.error("Error al obtener los usuarios: ", error);
+            return res.status(500).json({message:"Se ha producido un error al intentar obtener los usuarios"})
+        }
+     });
 
     // app.post(`${base}/login`, async(req, res, next)=>{
     //     try {

@@ -33,7 +33,7 @@ function validateTitle(title){
     }
 }
 function validateDescription(str){
-    if(str.length>=4 && str.length<=200){
+    if(str.length>=4 && str.length<=400){
         return true
     }else{
         return false

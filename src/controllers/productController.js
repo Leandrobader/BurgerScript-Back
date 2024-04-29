@@ -44,7 +44,7 @@ class ProductController {
         }
     }
 
-    async UpdateProductById(productId, title, description, image, price, category, stock) {
+    async UpdateProductById(productId, title, description, image, price, category, stock, controlStock) {
         try {
             if (!helpers.validateTitle(title)) {
                 throw new Error('El titulo debe tener entre 4 y 20 caracteres')
@@ -69,6 +69,7 @@ class ProductController {
             if (!helpers.validateStock(stock)) {
                 throw new Error('El stock no es valido')
             }
+            
 
             const updatedProduct = await productModel.findByIdAndUpdate(productId, {
                 title,
@@ -76,7 +77,8 @@ class ProductController {
                 image,
                 price,
                 category,
-                stock
+                stock,
+                controlStock,
             }, { new: true });
 
             return updatedProduct;

@@ -4,7 +4,7 @@ const Auth = require('../utils/middlewares/auth');
 const ProductRoutes = (base, app) => {
  const productController = new ProductController();
 
- app.post(`${base}/new-product`, async(req, res, next)=>{
+ app.post(`${base}/new-product`, Auth.isAuthenticated, Auth.isAdmin,  async(req, res, next)=>{
      try {
          const {title, description, image, price, category, stock}=req.body;
          await productController.Create(title, description, image, price, category, stock);
@@ -15,11 +15,11 @@ const ProductRoutes = (base, app) => {
      }
  });
 
- app.put(`${base}/update-product/:id`, async(req, res, next)=>{
+ app.put(`${base}/update-product/:id`, Auth.isAuthenticated, Auth.isAdmin, async(req, res, next)=>{
      try {
          const productId = req.params.id || "";
-         const {title, description, image, price, category, stock}=req.body;
-         await productController.UpdateProductById(productId, title, description, image, price, category, stock);
+         const {title, description, image, price, category, stock, controlStock}=req.body;
+         await productController.UpdateProductById(productId, title, description, image, price, category, stock, controlStock);
          return res.status(200).json({message: "Producto actualizado correctamente"});
      } catch (error) {
          console.error("Error al actualizar el producto: ", error);
@@ -27,7 +27,7 @@ const ProductRoutes = (base, app) => {
      }
  });
 
- app.delete(`${base}/delete-product/:id`, async(req, res, next)=>{
+ app.delete(`${base}/delete-product/:id`, Auth.isAuthenticated, Auth.isAdmin, async(req, res, next)=>{
      try {
          const productId = req.params.id || "";
          await productController.DeleteProductById(productId);
@@ -38,7 +38,7 @@ const ProductRoutes = (base, app) => {
      }
  });
 
- app.post(`${base}/get-product/:id`, async(req, res, next)=>{
+ app.get(`${base}/get-product/:id`, async(req, res, next)=>{
     try {
         const productId = req.params.id || "";
         const product = await productController.ShowProductById(productId);
