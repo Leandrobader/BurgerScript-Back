@@ -1,6 +1,7 @@
 const UserModel=require('../models/userModel')
 const bcrypt = require('bcrypt');
 const helpers=require('../utils/helpersFunctions');
+const jwt=require("jsonwebtoken");
 
 class UserController{
     
@@ -70,23 +71,39 @@ class UserController{
         }
     };
 
-    async ListUsers() {
+    async Login(req, res){
         try {
-            const users = await UserModel.find({});
-            return users;
-        } catch (error) {
-            throw error;
-        }
-    };
+            const body=req.body
 
-    async EditUserById(id, newData) {
-        try {
-            const updatedUser = await UserModel.findByIdAndUpdate(id, newData, { new: true });
-            return updatedUser;
+            if(body.email === "" || body.email===undefined){
+                throw new Error("Debe enviar un email")
+            }
+            if(body.password === "" || body.password===undefined){
+                throw new Error("Debe enviar un password")
+            }
+
+            const user = await UserModel.findOne({email:body.email});
+
+            if(user===null){
+                return res.status(404).json({message: "Email y/o password incorrecto"})
+            }
+
+            const compare=await bcrypt.compare(body.password, user.password)
+
+            if(!compare){
+                return res.status(404).json({message: "Email y/o password incorrecto"})
+            }
+
+            const token=jwt.sign({
+                _id:user._id,
+                role:user.role
+            }, process.env.SECRET_KEY, {expiresIn:"1D"})
+
+            return res.status(200).json({email:user.email, role:user.role, token:token, username:user.username});
         } catch (error) {
-            throw error;
+            throw error
         }
-    };
+    }
 
     async DeleteUserById(id){
         try {
@@ -96,6 +113,16 @@ class UserController{
             throw error
         }
     };
+
+    async ShowAllUsers() {
+        try {
+            const users = await UserModel.find();
+            return users;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 
     
 };
