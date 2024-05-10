@@ -2,7 +2,7 @@ const productModel = require('../models/productModel');
 const helpers = require('../utils/helpersFunctions');
 
 class ProductController {
-    async Create(title, description, image, price, category, stock) {
+    async Create(title, description, image, price, category, stock, distinguish) {
         try {
             if (!helpers.validateTitle(title)) {
                 throw new Error('El titulo debe tener entre 4 y 20 caracteres')
@@ -28,13 +28,18 @@ class ProductController {
                 throw new Error('El stock no es valido')
             }
 
+            if(!helpers.validateDistinguish(distinguish)){
+                throw new Error('El valor no es valido')
+            }
+
             const newProduct = new productModel({
                 title,
                 description,
                 image,
                 price,
                 category,
-                stock
+                stock,
+                distinguish
             });
 
             const savedProduct = await newProduct.save();
@@ -44,7 +49,7 @@ class ProductController {
         }
     }
 
-    async UpdateProductById(productId, title, description, image, price, category, stock, controlStock) {
+    async UpdateProductById(productId, title, description, image, price, category, stock, controlStock, distinguish) {
         try {
             if (!helpers.validateTitle(title)) {
                 throw new Error('El titulo debe tener entre 4 y 20 caracteres')
@@ -68,6 +73,10 @@ class ProductController {
 
             if (!helpers.validateStock(stock)) {
                 throw new Error('El stock no es valido')
+            }
+
+            if(!helpers.validateDistinguish(distinguish)){
+                throw new Error('El valor no es valido')
             }
             
 
@@ -79,6 +88,7 @@ class ProductController {
                 category,
                 stock,
                 controlStock,
+                distinguish,
             }, { new: true });
 
             return updatedProduct;
@@ -107,15 +117,6 @@ class ProductController {
                 query["title"]={$regex:search, $options:"i"}
             }
 
-            // console.log("QUERY DE BUSQ==> ", JSON.stringify(query));
-
-            // if (search === undefined) {
-            //     finalResponse = await productModel.find();
-            // }else{
-            //     finalResponse = await productModel.find({
-            //         title: search
-            //     })
-            // }
             finalResponse= await productModel.find(query)
             return finalResponse;
         } catch (error) {
@@ -161,9 +162,6 @@ class ProductController {
     }
 
     async FindProductsByTitleAndCategory(title, category){
-        // if (!title && !category) {
-        //     throw new Error('El titulo y la categoria son requeridos');
-        // }
         try {
             const products = await productModel.find({
                 $and: [

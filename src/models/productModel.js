@@ -44,6 +44,11 @@ const productSchema = new Schema({
             type: Date,
             default: Date.now
         }
+    },
+
+    distinguish:{
+        type: String,
+        required: true,
     }
 });
 
