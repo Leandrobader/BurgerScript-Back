@@ -116,7 +116,7 @@ class UserController{
 
     async ShowAllUsers() {
         try {
-            const users = await UserModel.find();
+            const users = await UserModel.find().select("-password");
             return users;
         } catch (error) {
             throw error;

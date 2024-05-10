@@ -6,8 +6,8 @@ const ProductRoutes = (base, app) => {
 
  app.post(`${base}/new-product`, Auth.isAuthenticated, Auth.isAdmin,  async(req, res, next)=>{
      try {
-         const {title, description, image, price, category, stock}=req.body;
-         await productController.Create(title, description, image, price, category, stock);
+         const {title, description, image, price, category, stock, distinguish}=req.body;
+         await productController.Create(title, description, image, price, category, stock, distinguish);
          return res.status(201).json({message: "Producto creado correctamente"});
      } catch (error) {
          console.error("Error al crear un nuevo producto: ", error);
@@ -18,8 +18,8 @@ const ProductRoutes = (base, app) => {
  app.put(`${base}/update-product/:id`, Auth.isAuthenticated, Auth.isAdmin, async(req, res, next)=>{
      try {
          const productId = req.params.id || "";
-         const {title, description, image, price, category, stock, controlStock}=req.body;
-         await productController.UpdateProductById(productId, title, description, image, price, category, stock, controlStock);
+         const {title, description, image, price, category, stock, controlStock, distinguish}=req.body;
+         await productController.UpdateProductById(productId, title, description, image, price, category, stock, controlStock, distinguish);
          return res.status(200).json({message: "Producto actualizado correctamente"});
      } catch (error) {
          console.error("Error al actualizar el producto: ", error);

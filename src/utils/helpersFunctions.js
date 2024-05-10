@@ -47,6 +47,14 @@ function validateCategory(str){
     }
 }
 
+function validateDistinguish(value){
+    if(value !== ""){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 function validateImage(str){    
      if (typeof str === 'string') {
         return true;
@@ -71,4 +79,4 @@ function validateStock(stock){
     }
 }
 
-module.exports={validateName, validateUsername, validateEmail, validatePassword, validateTitle, validateDescription, validateCategory, validateImage, validatePrice, validateStock}
+module.exports={validateName, validateUsername, validateEmail, validatePassword, validateTitle, validateDescription, validateCategory, validateImage, validatePrice, validateStock, validateDistinguish}
