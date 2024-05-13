@@ -14,24 +14,76 @@ El backend del proyecto Burger Script otorga las siguientes funcionalidades:
 
 ## Estructura general del sitio
 
+
+
 ## Comandos
 Para utilizar este proyecto se debe:
 
 ### 1. Clonar el repositorio:
 #### Clona este repositorio desde GitHub ejecutando el siguiente comando en tu terminal:
-#### git clone [URL del repositorio]
+```
+git clone [URL del repositorio]
+```
+
+## Estructura del Proyecto
+
+El proyecto backend está estructurado de la siguiente manera:
+```
+├── public
+│   │   
+│   └── index.html
+│
+├── src
+│   │
+│   │   
+│   ├── controllers
+│   │   ├── productController.js
+│   │   └── userController.js
+│   ├── models
+│   │   ├── ProductModel.js
+│   │   └── UserModel.js
+│   ├── routes
+│   │   ├── productRoutes.js
+│   │   └── userRoutes.js
+│   └── utils
+│   │    └── helperFunctions.js
+│   │    └── middlewares
+│   │        └── auth.js
+│   └── database.js
+│   │
+│   └── index.js
+│
+├── .env.example
+├── .gitignore
+├── README.md
+├── package-lock.json
+└── package.json
+```
 
 ### 2. Para instalar las dependencias
-npm i
+
+```
+npm install
+```
 
 ### 3. Variables de Entorno
 #### Se debe crear un archivo ".env" y copiar la siguiente variable de entorno:
-- PORT = 'El puerto donde se va a ejecutar el backend ejemplo: X000'
-- DDBB = 'Direccion de la base de datos de Mongo Atlas ejemplo: mongodb+srv://usuario:'
-- BCRPYPT_SALT = 'Saltos en la encriptacion con Bcrpyt ejemplo: X0'
+```
+PORT = 'El puerto donde se va a ejecutar el backend ejemplo: X000'
 
-### 4. Para ejecutar nuestra app de react
+DDBB = 'Direccion de la base de datos de Mongo Atlas ejemplo: mongodb+srv://usuario:'
+
+BCRPYPT_SALT = 'Saltos en la encriptacion con Bcrpyt ejemplo: X0'
+```
+
+
+
+
+### 4. Para ejecutar nuestra app desde el servidor
+
+```
 npm run dev
+```
 
 ## Librerias utilizadas
 - bcrypt: "^5.1.1",
@@ -44,8 +96,8 @@ npm run dev
 - nodemon: "^3.1.0"
 
 ## Desarrolladores
-- Leandro Bader
-- Marvel Surriable
-- Andrea Saraza
-- Javier Aguilar
-- Kelvin Pucho 
+- Leandro Bader [Github](https://github.com/Leandrobader)
+- Marvel Surriable [Github](https://github.com/MarvelSurriable)
+- Andrea Saraza [Github](https://github.com/AndiSaraza)
+- Javier Aguilar [Github](https://github.com/JAgustin91)
+- Kelvin Pucho [Github](https://github.com/kpzaolod6000)
