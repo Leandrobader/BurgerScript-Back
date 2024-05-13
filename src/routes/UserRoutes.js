@@ -85,15 +85,6 @@ const UserRoutes = (base, app) => {
         }
     });
 
-    // app.post(`${base}/login`, async(req, res, next)=>{
-    //     try {
-    //         const response=await userController.Login(req, res);
-    //         return response;
-    //     } catch (error) {
-    //         next(error);
-    //     }
-    // })
-
 }
 
 module.exports = UserRoutes;
