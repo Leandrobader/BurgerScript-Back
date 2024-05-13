@@ -74,6 +74,8 @@ PORT = 'El puerto donde se va a ejecutar el backend ejemplo: X000'
 DDBB = 'Direccion de la base de datos de Mongo Atlas ejemplo: mongodb+srv://usuario:'
 
 BCRPYPT_SALT = 'Saltos en la encriptacion con Bcrpyt ejemplo: X0'
+
+SECRET_KEY = 'Palabra secreta ejemplo: burgerscript'
 ```
 
 
