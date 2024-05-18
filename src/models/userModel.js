@@ -5,14 +5,16 @@ const userSchema = new Schema({
     name:{
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        match: [/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]*$/, 'Por favor ingrese un nombre válido']
     },
 
     username:{
         type: String,
         required: [true, 'Por favor ingrese un nombre de usuario'],
         unique: true,
-        trim: true
+        trim: true,
+        match: [/^[a-zA-Z0-9_]{4,20}$/, "Por favor ingrese un nombre de usuario válido"]
     },
 
     email:{
